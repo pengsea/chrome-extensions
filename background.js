@@ -9,12 +9,12 @@ chrome.runtime.onInstalled.addListener(function () {
         console.log("The color is green.");
     });
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
-        chrome.declarativeContent.onPageChanged.addRules([ {
-            conditions: [ new chrome.declarativeContent.PageStateMatcher({
-                pageUrl: { hostEquals: 'weibo.com' },
-            })
+        chrome.declarativeContent.onPageChanged.addRules([{
+            conditions: [new chrome.declarativeContent.PageStateMatcher({
+                pageUrl: { hostEquals: 'baidu.com' },
+            }),
             ],
-            actions: [ new chrome.declarativeContent.ShowPageAction() ]
-        } ]);
+            actions: [new chrome.declarativeContent.ShowPageAction()]
+        }]);
     });
 });
