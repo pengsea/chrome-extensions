@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "批量删除微博",
   "permissions": [
- "activeTab", "declarativeContent",  "storage"
+"tabs", "activeTab", "declarativeContent",  "storage"
   ],
   "page_action": {
     "default_popup": "popup.html",

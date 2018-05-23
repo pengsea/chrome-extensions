@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 
 <head>
     <style>
@@ -9,43 +9,35 @@
             height: 100%;
         }
 
-        #changeColor {
-            height: 30px;
-            width: 30px;
-            outline: none;
-        }
-
         #triggerDelete {
             width: 150px;
         }
 
-        #getList {
+        #postDelete {
             width: 150px;
         }
     </style>
 </head>
 
 <body>
-    <div>
-        <button id="changeColor"></button>
-    </div>
-    <div>
-        <button id="triggerDelete">触发点击事件删除</button>
-    </div>
-    <div>
-        <button id="getList">触发点击事件删除</button>
-    </div>
-    <div>
-        <button id="getWeiboList">获取微博</button>
-    </div>
-    <div style="width:500px">
-        <ul id="weiboList">
-            <li>456</li>
-            <li>456</li>
-            <li>456</li>
-        </ul>
-    </div>
-    <script src="popup.js"></script>
+<div>
+    <label>已删除<span id="triggerDeleteCount">0</span>条</label>
+</div>
+<div>
+    <button id="triggerDelete">触发点击事件删除</button>
+</div>
+
+<div style="width:500px">
+    <ul id="weiboList">
+    </ul>
+</div>
+<div>
+    <label>已删除<span id="postDeleteCount">0</span>条</label>
+</div>
+<div>
+    <button id="postDelete">调用接口删除</button>
+</div>
+<script src="popup.js"></script>
 </body>
 
 </html>
