@@ -1,9 +1,23 @@
-let triggerDelete = document.getElementById('triggerDelete');
-let postDelete = document.getElementById('postDelete');
-let weiboList = document.getElementById('weiboList');
+let triggerDelete = document.getElementById('triggerDelete');//事件删除按钮
+let postDelete = document.getElementById('postDelete');//接口删除按钮
+let weiboList = document.getElementById('weiboList');//列表
+let selectAll = document.getElementById('selectAll');//全选
+let triggerDeleteCount = 0,
+    postDeleteCount = 0,
+    weiboSource = [],
+    weiboSet = new Set();//删除的条数
 
 triggerDelete.onclick = function () {
     chromeTabs('cycleDeleteWithClick.js');
+};
+selectAll.onclick = function (element) {
+    if (element.target.checked) {//选中
+        weiboSource.forEach(item => weiboSet.add(item.mid));
+        document.querySelectorAll('#weiboList input').forEach(item=>item.checked=true);
+    } else {//未选中
+        weiboSet = new Set();
+        document.querySelectorAll('#weiboList input').forEach(item=>item.checked=false);
+    }
 };
 postDelete.onclick = function (element) {
 };
@@ -16,12 +30,20 @@ function draw(data) {
         li.innerText = (index + 1) + ' . ' + item.text;
         let input = document.createElement('input');
         input.attributes[ 'mid' ] = item.mid;
-        input.onclick = () => deleteMid(item.mid);
+        input.onclick = (e) => changeSet(e, item.mid);
         input.type = 'checkbox';
         li.insertBefore(input, li.childNodes[ 0 ]);
 
         weiboList.appendChild(li);
     });
+}
+
+function changeSet(e, mid) {
+    if (e.target.checked) {
+        weiboSet.add(mid);
+    } else {
+        weiboSet.delete(mid);
+    }
 }
 
 function deleteMid(mid) {
@@ -40,7 +62,7 @@ function chromeTabs(file) {
     });
 }
 
-let triggerDeleteCount = 0,postDeleteCount=0;
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(sender.tab ?
         "from a content script:" + sender.tab.url :
@@ -52,6 +74,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             sendResponse({ farewell: "ok" });
             break;
         case 'getList'://获得列表
+            weiboSource = request.data;
             draw(request.data);
             break;
         case 'deleteMidCallback'://获得列表
