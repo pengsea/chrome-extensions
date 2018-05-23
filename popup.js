@@ -11,7 +11,6 @@ postDelete.onclick = function (element) {
 chromeTabs('getWeiBoList.js');
 
 function draw(data) {
-    console.log(data);
     data.map((item) => {
         let li = document.createElement('li');
         li.style.paddingRight = '50px';
