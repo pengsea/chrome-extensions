@@ -11,13 +11,14 @@ postDelete.onclick = function (element) {
 chromeTabs('getWeiBoList.js');
 
 function draw(data) {
+    console.log(data);
     data.map((item) => {
         let li = document.createElement('li');
         li.style.paddingRight = '50px';
         li.innerText = item.text;
         let a = document.createElement('a');
         a.innerText = '删除';
-        a.attributes[ 'mid' ] = item.mid;
+        a.attributes['mid'] = item.mid;
         a.onclick = () => deleteMid(item.mid);
         li.appendChild(a);
         weiboList.appendChild(li);
@@ -25,8 +26,8 @@ function draw(data) {
 }
 
 function deleteMid(mid) {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {type: "deleteMid",data:mid}, function(response) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { type: "deleteMid", data: mid }, function (response) {
             console.log(response.farewell);
         });
     });
@@ -35,12 +36,12 @@ function deleteMid(mid) {
 function chromeTabs(file) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.executeScript(
-            tabs[ 0 ].id,
+            tabs[0].id,
             { file });
     });
 }
 
-let triggerDeleteCount = 0,postDeleteCount=0;
+let triggerDeleteCount = 0, postDeleteCount = 0;
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(sender.tab ?
         "from a content script:" + sender.tab.url :
