@@ -16,6 +16,14 @@
         #postDelete {
             width: 150px;
         }
+
+        .weiboLists {
+            width: 700px
+        }
+
+        #weiboList {
+            list-style-type: none;
+        }
     </style>
 </head>
 
@@ -27,10 +35,15 @@
     <button id="triggerDelete">触发点击事件删除</button>
 </div>
 
-<div style="width:500px">
-    <ul id="weiboList">
-    </ul>
+<div class="weiboLists">
+    <ol id="weiboList"></ol>
 </div>
+
+<div class="weiboLists">
+    <label>全选</label>
+    <input type="checkbox"/>
+</div>
+
 <div>
     <label>已删除<span id="postDeleteCount">0</span>条</label>
 </div>

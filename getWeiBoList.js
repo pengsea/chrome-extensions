@@ -1,15 +1,20 @@
-let listItemList = document.querySelectorAll('div[action-type="feed_list_item"]');
-let arr = [];
-for (let i = 0; i < listItemList.length; i++) {
-    let item = listItemList[ i ];
-    let mid = item.attributes[ 'mid' ].value;
-    let contentText = item.querySelector('div[node-type=feed_list_content]').innerText;
-    arr.push({
-        mid,
-        text: contentText
-    })
+
+function getList() {
+    let listItemList = document.querySelectorAll('div[action-type="feed_list_item"]');
+    let arr = [];
+    for (let i = 0; i < listItemList.length; i++) {
+        let item = listItemList[ i ];
+        let mid = item.attributes[ 'mid' ].value;
+        let contentText = item.querySelector('div[node-type=feed_list_content]').innerText;
+        arr.push({
+            mid,
+            text: contentText
+        })
+    }
+    return arr;
 }
-chrome.runtime.sendMessage({ type: 'getList', data: arr }, function (response) {
+
+chrome.runtime.sendMessage({ type: 'getList', data: getList() }, function (response) {
     console.log(response.farewell);
 });
 
