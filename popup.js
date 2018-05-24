@@ -13,13 +13,14 @@ triggerDelete.onclick = function () {
 selectAll.onclick = function (element) {
     if (element.target.checked) {//选中
         weiboSource.forEach(item => weiboSet.add(item.mid));
-        document.querySelectorAll('#weiboList input').forEach(item=>item.checked=true);
+        document.querySelectorAll('#weiboList input').forEach(item => item.checked = true);
     } else {//未选中
         weiboSet = new Set();
-        document.querySelectorAll('#weiboList input').forEach(item=>item.checked=false);
+        document.querySelectorAll('#weiboList input').forEach(item => item.checked = false);
     }
 };
-postDelete.onclick = function (element) {
+postDelete.onclick = function () {
+    deleteMid();
 };
 
 chromeTabs('getWeiBoList.js');
@@ -27,12 +28,18 @@ chromeTabs('getWeiBoList.js');
 function draw(data) {
     data.map((item, index) => {
         let li = document.createElement('li');
-        li.innerText = (index + 1) + ' . ' + item.text;
+        // li.innerText = (index + 1) + ' . ' + item.text;
+        li.className = 'mid_' + item.mid;
+
         let input = document.createElement('input');
         input.attributes[ 'mid' ] = item.mid;
         input.onclick = (e) => changeSet(e, item.mid);
         input.type = 'checkbox';
-        li.insertBefore(input, li.childNodes[ 0 ]);
+        li.appendChild(input);
+        let div = document.createElement('div');
+        div.innerText = (index + 1) + ' . ' + item.text;
+        li.appendChild(div);
+        // li.insertBefore(input, li.childNodes[ 0 ]);
 
         weiboList.appendChild(li);
     });
@@ -46,9 +53,9 @@ function changeSet(e, mid) {
     }
 }
 
-function deleteMid(mid) {
+function deleteMid() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[ 0 ].id, { type: "deleteMid", data: mid }, function (response) {
+        chrome.tabs.sendMessage(tabs[ 0 ].id, { type: "deleteMid", data: [ ...weiboSet ] }, function (response) {
             console.log(response.farewell);
         });
     });
@@ -61,7 +68,6 @@ function chromeTabs(file) {
             { file });
     });
 }
-
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(sender.tab ?
@@ -80,6 +86,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         case 'deleteMidCallback'://获得列表
             postDeleteCount++;
             document.getElementById('postDeleteCount').innerText = postDeleteCount;
+            weiboList.removeChild(document.querySelector(`.mid_${request.data}`));
             sendResponse({ farewell: "ok" });
             break;
         default:
