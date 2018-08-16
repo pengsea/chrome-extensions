@@ -1,6 +1,6 @@
 function getList() {
     let arr = [];
-    if (location.pathname.includes('home')) {//我的主页
+    if (location.pathname.includes('home')||location.pathname.includes('profile')) {//我的主页
         let listItemList = document.querySelectorAll('div[action-type="feed_list_item"]');
         for (let i = 0; i < listItemList.length; i++) {
             let item = listItemList[ i ];
