@@ -25,6 +25,7 @@ postDelete.onclick = function () {
 
 chromeTabs('getWeiBoList.js');
 
+//显示当前的列表
 function draw(data) {
     data.map((item, index) => {
         let li = document.createElement('li');
@@ -37,7 +38,7 @@ function draw(data) {
         input.type = 'checkbox';
         li.appendChild(input);
         let div = document.createElement('div');
-        div.innerText = (index + 1) + ' . ' + item.text;
+        div.innerText = item.text;
         li.appendChild(div);
         // li.insertBefore(input, li.childNodes[ 0 ]);
 
@@ -56,7 +57,7 @@ function changeSet(e, mid) {
 function deleteMid() {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.sendMessage(tabs[ 0 ].id, { type: "deleteMid", data: [ ...weiboSet ] }, function (response) {
-            console.log(response.farewell);
+
         });
     });
 }

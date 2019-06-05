@@ -9,55 +9,83 @@
             height: 100%;
         }
 
-        #triggerDelete {
-            width: 150px;
+        button {
+            border-radius: 4px;
+            color: #fff;
+            background-color: #0C8EE8;
+            width: 200px;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+            height: 40px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1;
+            border: 1px solid  #1890ff;
+            cursor: pointer;
         }
 
-        #postDelete {
-            width: 150px;
+
+        label {
+            font-size: 16px;
         }
 
         .weiboLists {
-            width: 700px
+            width: 700px;
+            padding-left: 30px;
         }
 
         #weiboList {
-            list-style-type: none;
+            padding: 0 0 0 30px;
+            padding-inline-start: 0;
         }
 
-        li{
+        li {
             float: left;
         }
-        li div{
+
+        li div {
             float: right;
             width: 640px;
+        }
+
+        .method {
+            display: flex;
+            align-items: center;
+        }
+
+        .method div {
+            margin-right: 10px;
         }
     </style>
 </head>
 
 <body>
-<div>
-    <label>已删除<span id="triggerDeleteCount">0</span>条</label>
+<div class="method">
+    <div>
+        <button id="triggerDelete">触发点击事件删除(慢)</button>
+    </div>
+    <div>
+        <label>已删除<span id="triggerDeleteCount">0</span>条</label>
+    </div>
 </div>
-<div>
-    <button id="triggerDelete">触发点击事件删除(慢)</button>
+<hr/>
+<div class="method">
+    <div>
+        <button id="postDelete">调用接口删除(快)</button>
+    </div>
+    <div>
+        <label>已删除<span id="postDeleteCount">0</span>条</label>
+    </div>
 </div>
-
+<div class="weiboLists">
+    <input type="checkbox" id="selectAll"/>
+    <label for="selectAll">全选</label>
+</div>
 <div class="weiboLists">
     <ol id="weiboList"></ol>
 </div>
 
-<div class="weiboLists">
-    <label>全选</label>
-    <input type="checkbox" id="selectAll"/>
-</div>
 
-<div>
-    <label>已删除<span id="postDeleteCount">0</span>条</label>
-</div>
-<div>
-    <button id="postDelete">调用接口删除(快)</button>
-</div>
 <script src="popup.js"></script>
 </body>
 
