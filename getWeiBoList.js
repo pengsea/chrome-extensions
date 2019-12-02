@@ -53,19 +53,24 @@ function deleteMid(data) {
     } else {
         deleteMidItem(data);
     }
-    document.querySelector('.WB_tab_a .S_txt1.S_line1').click();
+    //删除完成后点击tab刷新
+    document.querySelector('.WB_tab_b .S_line1').click();
 }
 
 function deleteMidItem(mid) {
+    const path='aj/f/remove';//删除url路径
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://weibo.com/aj/mblog/del?ajwvr=6');
+    xhr.open('POST', `https://weibo.com/${path}?ajwvr=6`);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send(encodeURI('mid=' + mid));
+    xhr.send(encodeURI('uid=' + mid));
+    // xhr.send(encodeURI('fname=' + mid));//微博多余的参数
+    // xhr.send(encodeURI('fnick=' + mid));
+    // xhr.send(encodeURI('_t=' + 0));
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {//4代表执行完成
             if (xhr.status === 200) {//200代表执行成功
-                chrome.runtime.sendMessage({ type: 'deleteMidCallback', data: mid }, function (response) {
-                    console.log(response.farewell);
+                chrome.runtime.sendMessage({ type: 'deleteMidCallback', data: mid }, function () {
+                    console.log(eval("'"+xhr.responseText+"'"));
                 });
 
             }

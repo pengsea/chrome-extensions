@@ -32,15 +32,16 @@ function draw(data) {
         // li.innerText = (index + 1) + ' . ' + item.text;
         li.className = 'mid_' + item.mid;
 
+        let label = document.createElement('label');
+
         let input = document.createElement('input');
         input.attributes[ 'mid' ] = item.mid;
+        input.attributes[ 'id' ] = item.mid;
         input.onclick = (e) => changeSet(e, item.mid);
         input.type = 'checkbox';
-        li.appendChild(input);
-        let div = document.createElement('div');
-        div.innerText = item.text;
-        li.appendChild(div);
-        // li.insertBefore(input, li.childNodes[ 0 ]);
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(item.text));
+        li.appendChild(label);
 
         weiboList.appendChild(li);
     });
