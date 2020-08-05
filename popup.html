@@ -3,89 +3,35 @@
 <meta charset="UTF-8"/>
 
 <head>
-    <style>
-        body {
-            width: 100%;
-            height: 100%;
-        }
-
-        button {
-            border-radius: 4px;
-            color: #fff;
-            background-color: #0C8EE8;
-            width: 200px;
-            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-            height: 40px;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1;
-            border: 1px solid  #1890ff;
-            cursor: pointer;
-        }
-
-
-        label {
-            font-size: 16px;
-        }
-
-        .weiboLists {
-            width: 700px;
-            padding-left: 30px;
-        }
-
-        #weiboList {
-            padding: 0 0 0 30px;
-            padding-inline-start: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        li {
-            float: left;
-        }
-
-        li div {
-            float: right;
-            width: 640px;
-        }
-
-        .method {
-            display: flex;
-            align-items: center;
-        }
-
-        .method div {
-            margin-right: 10px;
-        }
-    </style>
-    <title></title>
+  <link rel="stylesheet" href="popup.css"/>
+  <title>删除面板</title>
 </head>
 
 <body>
+<h1>当前页面-<span id="pageName"></span></h1>
 <div class="method">
-    <div>
-        <button id="triggerDelete">触发点击事件删除(慢)</button>
-    </div>
-    <div>
-        <label>已删除<span id="triggerDeleteCount">0</span>条</label>
-    </div>
+  <div>
+    <button id="triggerDelete">触发点击事件删除(慢)</button>
+  </div>
+  <div>
+    <label>已删除<span id="triggerDeleteCount">0</span>条</label>
+  </div>
 </div>
 <hr/>
 <div class="method">
-    <div>
-        <button id="postDelete">调用接口删除(快)</button>
-    </div>
-    <div>
-        <label>已删除<span id="postDeleteCount">0</span>条</label>
-    </div>
+  <div>
+    <button id="postDelete">调用接口删除(快)</button>
+  </div>
+  <div>
+    <label>已删除<span id="postDeleteCount">0</span>条</label>
+  </div>
 </div>
 <div class="weiboLists">
-    <input type="checkbox" id="selectAll"/>
-    <label for="selectAll">全选</label>
+  <input type="checkbox" id="selectAll"/>
+  <label for="selectAll">全选</label>
 </div>
 <div class="weiboLists">
-    <ol id="weiboList"></ol>
+  <ol id="weiboList"></ol>
 </div>
 
 

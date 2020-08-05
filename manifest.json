@@ -1,8 +1,8 @@
 {
   "name": "批量删除微博",
   "manifest_version": 2,
-  "version": "1.1",
-  "description": "批量删除微博",
+  "version": "1.2.1",
+  "description": "批量删除微博/粉丝/关注",
   "permissions": [
     "tabs",
     "activeTab",
@@ -18,7 +18,6 @@
       "128": "images/get_started128.png"
     }
   },
-  "options_page": "options.html",
   "background": {
     "scripts": [
       "background.js"

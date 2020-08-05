@@ -1,9 +1,10 @@
-//循环删除
+//循环点击按钮删除
 for (let i = 0,
          len =
              location.pathname.includes('home') ? document.querySelectorAll('.WB_cardwrap.WB_feed_type.S_bg2.WB_feed_like').length :
              location.pathname.includes('profile') ? document.querySelectorAll('.WB_cardwrap.WB_feed_type.S_bg2.WB_feed_like').length :
-                 location.pathname.includes('fans') ? document.querySelectorAll('.follow_item.S_line2').length : 0
+                 location.pathname.includes('fans') ? document.querySelectorAll('.follow_item.S_line2').length:
+                     location.pathname.includes('follow') ? document.getElementsByClassName('member_li S_bg1').length: 0
     ; i < len; i++) {
     setTimeout(batchClick, 2000 * i);
 }
@@ -17,13 +18,13 @@ function batchClick() {
         document.querySelector('div[node-type="layer_menu_list"]').style.display='block';
         document.querySelector('a[action-type="removeFan"]').click();
         document.querySelector('.W_btn_a').click();
-    } else {
-
+    } else if (location.pathname.includes('follow')) {//我的关注
+        document.querySelector('div[node-type="layer_hover_list"]').style.display='block';
+        document.querySelector('a[action-type="cancel_follow_single"]').click();
+        document.querySelector('.W_btn_a').click();
     }
 
-    chrome.runtime.sendMessage({ type: "trigger" }, function (response) {
-        console.log(response.farewell);
-    });
+    chrome.runtime.sendMessage({ type: "deleteByClickFinish" });
 }
 
 //@ sourceURL=cycleDeleteWithClick.js
